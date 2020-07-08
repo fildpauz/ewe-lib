@@ -2,14 +2,27 @@
 * @file Definition file for Quiz object
 * @author Ralph L. Rose <rose@waseda.jp>
 * @copyright Ralph L. Rose 2020
-* @license The MIT License
+* @license MIT The MIT License
 */
 
 "use strict";
 
 /**
-* This defines the Quiz class which is the main object
-* that EWE works on and creates in one run.
+* This defines the Quiz class which is the main object that EWE works
+* on and creates in one run. A structure json should look as follows.
+* Any number of parts may be included (two are shown here as example).
+* 
+* { "parts": [
+*      { "type": "ItemType",
+*        "number": "Integer" },
+*      { "type": "ItemType",
+*        "number": "Integer" }
+* ]}
+*
+* @param {json object} structure a json object defining the structure of the quiz
+* @param {object[]} itemGroups an array of objects of type ItemGroup
+* @param {string} title the title of the quiz
+* @param {string} instructions a string intended to contain instructions directed to the quiz taker
 */
 class Quiz {
     _structure = null;
@@ -17,6 +30,7 @@ class Quiz {
     _title = ""; // TODO: How to deal with localization of title and instructions?
     _instructions = "";
 
+    /** @constructor */
     constructor(structure){
         if(!isWellFormedQuizStructure(structure)) {
             throw new Error('Cannot initialize Quiz object: Structure definition is not well-formed.')
@@ -84,6 +98,12 @@ function isWellFormedQuizStructure(structure) {
     return true;
 }
 
+/**
+ * This function checks whether an individual group portion of a 
+ * structure definition is well-formed or not.
+ * @param {json object} structure 
+ * @return {boolean} If the structure objed is well-formed, true. Otherwise, false.
+ */
 function isWellFormedGroupStructure(structure){
     var strucInfo = structure.split(":");
     if (strucInfo.length !== 2) {

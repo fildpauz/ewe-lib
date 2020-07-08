@@ -1,8 +1,8 @@
-/* Title: index.js (entry point to ewe-lib)
- * Author: Ralph L. Rose
- * E-mail address: rose@waseda.jp
- * Description: Main library for generating vocabulary quizzes
- * License: The MIT License
+/**
+ * @file Main library for generating vocabulary quizzes
+ * @author Ralph L. Rose <rose@waseda.jp>
+ * @copyright Ralph L. Rose 2020
+ * @license MIT The MIT License
  */
 
  "use strict";
