@@ -19,10 +19,10 @@
 *        "number": "Integer" }
 * ]}
 *
-* @param {json object} structure a json object defining the structure of the quiz
-* @param {object[]} itemGroups an array of objects of type ItemGroup
-* @param {string} title the title of the quiz
-* @param {string} instructions a string intended to contain instructions directed to the quiz taker
+* @param {json object} _structure a json object defining the structure of the quiz
+* @param {object[]} _itemGroups an array of objects of type ItemGroup
+* @param {string} _title the title of the quiz
+* @param {string} _instructions a string intended to contain instructions directed to the quiz taker
 */
 class Quiz {
     _structure = null;
