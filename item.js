@@ -14,8 +14,8 @@
 const itemTypes = {
     MULTICHOICE_CLOZE: "Multiple choice cloze",
     MULTICHOICE_SYNONYM: "Multiple choice synonym",
-    // MULTICHOICE_REARRANGE: "Multiple choice rearrange",
-    // MATCHING: "Matching",
+    MULTICHOICE_REARRANGE: "Multiple choice rearrange",
+    MATCHING: "Matching",
     FREERESPONSE_CLOZE: "Free response cloze"
 }
 
@@ -67,8 +67,8 @@ class MultichoiceClozeItem extends MultichoiceItem {
     _stem = null;
 
     /** @constructor */
-    constructor(type) {
-        super(type);
+    constructor() {
+        super(ItemTypes.MULTICHOICE_CLOZE);
     }
 
     get stem() {
@@ -89,8 +89,8 @@ class MultichoiceSynonymItem extends MultichoiceItem {
     _stem = null;
 
     /** @constructor */
-    constructor(type) {
-        super(type);
+    constructor() {
+        super(ItemTypes.MULTICHOICE_SYNONYM);
     }
 
     get stem() {
@@ -111,8 +111,8 @@ class MultichoiceRearrangeItem extends MultichoiceItem {
     /** @todo Define properties */
 
     /** @constructor */
-    constructor(type) {
-        super(type);
+    constructor() {
+        super(ItemTypes.MULTICHOICE_REARRANGE);
     }
     /** @todo Define functions */
 }
@@ -126,8 +126,8 @@ class FreeresponseClozeItem extends Item {
     _stems = [];
 
     /** @constructor */
-    constructor(type) {
-        super(type);
+    constructor() {
+        super(ItemTypes.FREERESPONSE_CLOZE);
     }
 
     get stems() {
@@ -148,8 +148,8 @@ class MatchingItem extends Item {
     /** @todo Define properties */
 
     /** @constructor */
-    constructor(type) {
-        super(type);
+    constructor() {
+        super(ItemTypes.MATCHING);
     }
     /** @todo Define functions */
 }

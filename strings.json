@@ -1,0 +1,73 @@
+{
+    "languages": [
+        "en",
+        "ja"
+    ],
+    "default": "en",
+    "strings": [
+        {
+            "language": "en",
+            "title": "Vocabulary Quiz",
+            "instructions": "Read the instructions for each part carefully and answer all of the questions.",
+            "types": [
+                {
+                    "type": "Multiple choice cloze",
+                    "title": "Multiple choice cloze items",
+                    "instructions": "Choose the option which best fills in the blank in the sentence."
+                },
+                {
+                    "type": "Multiple choice synonym",
+                    "title": "Multiple choice synonym items",
+                    "instructions": "Choose the option which is closest in meaning to the word highlighted in the sentence."
+                },
+                {
+                    "type": "Free response cloze",
+                    "title": "Free response cloze items",
+                    "instructions": "Write the word which best fits in both blanks and matches the given hint."
+                },
+                {
+                    "type": "Multiple choice rearrange",
+                    "title": "Multiple choice rearranging",
+                    "instructions": "Rearrange the sequence of five words to best complete the sentence and then choose the option which indicates the second and fourth words"
+                },
+                {
+                    "type": "Matching",
+                    "title": "Matching",
+                    "instructions": "Match each sentence with the word which best fills its blank."
+                }
+            ]
+        },
+        {
+            "language": "ja",
+            "title": "単語クイズ",
+            "instructions": "各部分の説明を注意深く読み、すべての質問に答えてください。",
+            "types": [
+                {
+                    "type": "Multiple choice cloze",
+                    "title": "多肢選択穴埋問題",
+                    "instructions": "文の空白を最もよく埋めるオプションを選択してください。"
+                },
+                {
+                    "type": "Multiple choice synonym",
+                    "title": "多肢選択同義語問題",
+                    "instructions": "文でハイライトされている単語に最も近い意味のオプションを選択してください。"
+                },
+                {
+                    "type": "Free response cloze",
+                    "title": "自由穴埋問題",
+                    "instructions": "両方の空白に最もよく合い、与えられたヒントに一致する単語を回答下さい。"
+                },
+                {
+                    "type": "Multiple choice rearrange",
+                    "title": "多肢選択並べ替える問題",
+                    "instructions": "5つの単語のシーケンスを並べ替えて文を最適に完成させ、2番目と4番目の単語を示すオプションを選択してください。"
+                },
+                {
+                    "type": "Matching",
+                    "title": "マッチング",
+                    "instructions": "各文を、その空白を最も埋める単語と一致させます。"
+                }
+            ]
+        }
+    ]
+}

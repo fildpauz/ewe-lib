@@ -70,6 +70,83 @@ class quizFactory {
             makeItemGroup(itemGroup);
         });
     }
+
+    makeItemGroup(itemGroup){
+        for (i=0; i<itemGroup._targetCount; i++){
+            makeItem(itemGroup._itemType, item =>{
+                itemGroup._items.push(item);
+            })
+        }
+    }
+}
+
+function makeItem(itemType, callback){
+    var item;
+    switch (itemType) {
+        case itemTypes.MULTICHOICE_CLOZE:
+            item = makeMultichoiceClozeItem();
+            break;
+        case itemTypes.MULTICHOICE_SYNONYM:
+            item = makeMultichoiceSynonymItem();
+            break;
+        case itemTypes.FREERESPONSE_CLOZE:
+            item = makeFreeResponseClozeItem();
+            break;
+        case itemTypes.MULTICHOICE_REARRANGE:
+            item = makeMultichoiceRearrangeItem();
+            break;
+        case itemTypes.MATCHING:
+            item = makeMatchingItem();
+            break;
+        default:
+            throw "Unknown or undefined ItemType";
+    }
+    return item;
+}
+
+/**
+ * Main function for producing a multiple choice cloze item
+ */
+function makeMultichoiceClozeItem(){
+    var item = new MultichoiceClozeItem();
+    /** @todo do lots of stuff here! */
+    return item;
+}
+
+/**
+ * Main function for producing a multiple choice synonym item
+ */
+function makeMultichoiceSynonymItem(){
+    var item = new MultichoiceSynonymItem();
+    /** @todo do lots of stuff here! */
+    return item;
+}
+
+/**
+ * Main function for producing a free response cloze item
+ */
+function makeFreeResponseClozeItem(){
+    var item = new FreeResponseClozeItem();
+    /** @todo do lots of stuff here! */
+    return item;
+}
+
+/**
+ * Main function for producing a multiple choice rearrange item
+ */
+function makeMultichoiceRearrangeItem(){
+    var item = new MultichoiceRearrangeItem();
+    /** @todo do lots of stuff here! */
+    return item;
+}
+
+/**
+ * Main function for producing a matching item
+ */
+function makeMatchingItem(){
+    var item = new MatchingItem();
+    /** @todo do lots of stuff here! */
+    return item;
 }
 
 /**
