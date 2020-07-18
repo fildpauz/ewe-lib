@@ -80,9 +80,13 @@ class Quiz {
     }
 }
 
-function chooseLanguage(structureLanguage){
-    if (i18nStrings.languages.includes(structureLanguage)){
-        return structureLanguage;
+module.exports = function chooseLanguage(structureLanguage){
+    if (typeof structureLanguage !== 'string'){
+        throw "Wrong argument type to chooseLanguage()";
+    }
+    var testStr = structureLanguage.toLowerCase();
+    if (i18nStrings.languages.includes(testStr)){
+        return testStr;
     } else {
         return i18nStrings.default;
     }
@@ -122,7 +126,7 @@ class ItemGroup {
         })
     }
 
-    get title(title) {
+    get title() {
         return this._title;
     }
 
