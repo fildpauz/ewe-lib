@@ -1,0 +1,8 @@
+# ignore the jest coverage output directory
+coverage/
+
+# ignore the node_modules directory
+node_modules/
+
+# Various files
+*.log

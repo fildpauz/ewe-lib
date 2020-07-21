@@ -5,6 +5,11 @@
 * @license MIT The MIT License
 */
 
+/** Load the importTypes enum */
+const item = require('./item.js');
+const ItemGroup = require('./item-group.js');
+const chooseLanguage = require('./choose-language.js');
+
 "use strict";
 
 /** Load the strings file for internationalization */
@@ -18,7 +23,7 @@ var i18nStrings = require("./strings.json");
 * { "language": {
 *     "meta": "en",
 *     "items": "en"
-*   }
+*   },
 *   "parts": [
 *      { "type": "ItemType",
 *        "number": "Integer" },
@@ -38,8 +43,8 @@ class Quiz {
     _instructions = "";
 
     /** @constructor */
-    constructor(structure){
-        if(!isWellFormedQuizStructure(structure)) {
+    constructor(structure) {
+        if (! this.isWellFormedQuizStructure(structure)) {
             throw new Error('Cannot initialize Quiz object: Structure definition is not well-formed.')
         } else {
             this._structure = structure;
@@ -60,125 +65,69 @@ class Quiz {
         this._instructions = instructions;
     }
 
-    initializeMetaText(){
-        var lang = chooseLanguage(this._structure.language);
-        i18nStrings.strings.find(language === lang, match => {
-            this._title = match.title;
-            this._instructions = match.instructions;
+    initializeMetaText() {
+        var lang = chooseLanguage(this._structure.language.meta);
+        i18nStrings.strings.find((element, index) => {
+            if (element.language === lang){
+                this._title = i18nStrings.strings[index].title;
+                this._instructions = i18nStrings.strings[index].instructions;
+                return true;
+            }
         })
     }
 
-    initializeItemGroups(){
+    initializeItemGroups() {
         this._structure.parts.forEach(part => {
             /** @question move initialization steps to ItemGroup constructor? */
-            itemGroup = new ItemGroup(part.type,
+            var itemGroup = new ItemGroup(part.type,
                 this._itemGroups.length + 1,
                 part.number,
-                this._structure.language);
+                this._structure.language.items);
             this._itemGroups.shift(itemGroup);
         });
     }
-}
 
-module.exports = function chooseLanguage(structureLanguage){
-    if (typeof structureLanguage !== 'string'){
-        throw "Wrong argument type to chooseLanguage()";
-    }
-    var testStr = structureLanguage.toLowerCase();
-    if (i18nStrings.languages.includes(testStr)){
-        return testStr;
-    } else {
-        return i18nStrings.default;
-    }
-}
-
-/**
-* A class which defines a group of like items, forming one
-* part of a complete Quiz.
-* @param {number} _order the user-specified order of this item group in the quiz
-* @param {string} _title a string title for this part of the quiz
-* @param {string} _instructions a string giving instructions for this part
-* @param {ItemType} _itemType the type of the items in this part
-* @param {number} _targetCount the user-specified number of items that are to be
-* created for this part
-* @param {Item[]} _items an array of question items of class Item
-*/
-class ItemGroup {
-    _order = null;
-    _title = null;
-    _instructions = null;
-    _itemType = null;
-    _targetCount = null;
-    _items = [];
-
-    /** @constructor */
-    constructor(itemType, order, targetCount, language) {
-        this._itemType = itemType;
-        this._order = order;
-        this._targetCount = targetCount;
-        /** @todo initialize title based on itemType and language */
-        var lang = chooseLanguage(this._structure.language);
-        i18nStrings.strings.find(language === lang, match => {
-            match.types.find(type === this._itemType, match2 => {
-                this._title = match2.title;
-                this._instructions = match2.instructions;
-            })
-        })
-    }
-
-    get title() {
-        return this._title;
-    }
-
-    set title(title) {
-        this._title = title;
-    }
-
-    get items() {
-        return this._items;
-    }
-
-    set items(items) {
-        this._items = items;
-    }
-}
-
-/** 
-* A function to evaluate whether a json object is a well-formed
-* expression of the structure of a Quiz.
-* @param {json} structure - A json object that describes the structure of a quiz
-* @return {boolean} If the structure object is well-formed, true. Otherwise, false.
-*/
-function isWellFormedQuizStructure(structure) {
-    var groups = structure.split(",");
-    groups.forEach(element => {
-        if (!isWellFormedGroupStructure(element)){
-            return false;
+    /** 
+    * A function to evaluate whether a json object is a well-formed
+    * expression of the structure of a Quiz.
+    * @param {json} structure - A json object that describes the structure of a quiz
+    * @return {boolean} If the structure object is well-formed, true. Otherwise, false.
+    */
+    isWellFormedQuizStructure(structure) {
+        var result = false;
+        var groups = structure.parts;
+        if (typeof groups !== 'undefined') {
+            groups.forEach(element => {
+                if (this.isWellFormedGroupStructure(element)) {
+                    result = true;
+                } else {
+                    result = false;
+                    break;
+                }
+            });
         }
-    });
-    return true;
+        return result;
+    }
+
+    /**
+     * This function checks whether an individual group portion of a 
+     * structure definition is well-formed or not.
+     * @param {json object} structure 
+     * @return {boolean} If the structure objed is well-formed, true. Otherwise, false.
+     */
+    isWellFormedGroupStructure(structure) {
+        var result = false;
+        for (let type in item.itemTypes) { // Q: Use eweGlobals instead?
+            if (type === structure.type) {
+                if (Number.isInteger(structure.number)) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
 }
 
-/**
- * This function checks whether an individual group portion of a 
- * structure definition is well-formed or not.
- * @param {json object} structure 
- * @return {boolean} If the structure objed is well-formed, true. Otherwise, false.
- */
-function isWellFormedGroupStructure(structure){
-    var strucInfo = structure.split(":");
-    if (strucInfo.length !== 2) {
-        return false;
-    }
-    var result = false;
-    for (type in itemTypes) { // Q: Use eweGlobals instead?
-        if (type === strucInfo[0]){
-            result = true;
-            break;
-        }
-    }
-    if (!Number.isInteger(strucInfo[1])) {
-        result = false;
-    }
-    return result;
-}
+
+module.exports = Quiz;

@@ -153,3 +153,12 @@ class MatchingItem extends Item {
     }
     /** @todo Define functions */
 }
+
+module.exports = {
+    itemTypes,
+    MultichoiceClozeItem,
+    MultichoiceSynonymItem,
+    MultichoiceRearrangeItem,
+    FreeresponseClozeItem,
+    MatchingItem
+}
