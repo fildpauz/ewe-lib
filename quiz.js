@@ -9,6 +9,7 @@
 const item = require('./item.js');
 const ItemGroup = require('./item-group.js');
 const chooseLanguage = require('./choose-language.js');
+const CountryLanguage = require('country-language');
 
 "use strict";
 
@@ -57,6 +58,9 @@ class Quiz {
         return this._structure;
     }
 
+    get title() {
+        return this._title;
+    }
     set title(title) {
         this._title = title;
     }
@@ -96,16 +100,25 @@ class Quiz {
     isWellFormedQuizStructure(structure) {
         var result = false;
         var groups = structure.parts;
-        if (typeof groups !== 'undefined') {
-            groups.forEach(element => {
-                if (this.isWellFormedGroupStructure(element)) {
-                    result = true;
-                } else {
-                    result = false;
-                    break;
-                }
-            });
+        if (typeof structure.language !== 'undefined' &&
+            typeof groups !== 'undefined') {
+            result =
+                this.isWellFormedLanguageStructure(structure.language) &&
+                groups.length > 0 &&
+                groups.every((element) => {
+                    return (this.isWellFormedGroupStructure(element));
+                });
         }
+        return result;
+    }
+
+    isWellFormedLanguageStructure(structure){
+        var result = false;
+        if (typeof structure.meta !== 'undefined' &&
+            typeof structure.items !== 'undefined'){
+            result = CountryLanguage.languageCodeExists(structure.meta) &&
+                     CountryLanguage.languageCodeExists(structure.items);
+        } 
         return result;
     }
 
@@ -113,7 +126,7 @@ class Quiz {
      * This function checks whether an individual group portion of a 
      * structure definition is well-formed or not.
      * @param {json object} structure 
-     * @return {boolean} If the structure objed is well-formed, true. Otherwise, false.
+     * @return {boolean} If the structure object is well-formed, true. Otherwise, false.
      */
     isWellFormedGroupStructure(structure) {
         var result = false;
