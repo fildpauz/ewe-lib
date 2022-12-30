@@ -17,7 +17,7 @@
     "url": "https://github.com/fildpauz/ewe-lib.git"
   },
   "devDependencies": {
-    "mocha": "^8.0.1"
+    "mocha": "^8.4.0"
   },
   "dependencies": {
     "country-language": "^0.1.7"
